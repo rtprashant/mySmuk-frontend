@@ -3,7 +3,7 @@ import { navBar } from '../constant/LandingPage';
 
 function Header() {
     return (
-        <div className='   '>
+        <div className='z-40   '>
             <div className="flex sm:flex   h-[45px] md:w-[620px] md:h-[52px] lg:w-[1186px]   lg:h-[80px] sm:bg-[#EDCCCC] sm:rounded-xl sm:shadow-sm">
                 {navBar.map((item, index) => (
                     <div key={index} className="flex items-center  ">
@@ -34,11 +34,11 @@ function Header() {
                             {/* Buttons Section */}
                             <div className='sm:block hidden '>
                                 {item.id === 3 && (
-                                    <div className="flex items-center gap-2 lg:mr-4 md:mr-4">
-                                        <button className="lg:w-[176px] lg:h-[41px] md:w-[92.7px] md:h-[51px] bg-[#FF5151] flex items-center justify-center text-white rounded-lg lg:text-[24px] hover:cursor-pointer font-outfit md:text-[14px]">
+                                    <div className="flex items-center gap-3 lg:mr-4 md:mr-4">
+                                        <button className="lg:w-[125px] lg:h-[41px] md:w-[92.7px] md:h-[51px] bg-[#FF5151] flex items-center justify-center text-white rounded-lg lg:text-[24px] hover:cursor-pointer hover:bg-[#FF1717] font-outfit md:text-[14px] z-40">
                                             {item.addRest}
                                         </button>
-                                        <button className="lg:w-[110px] lg:h-[41px] md:w-[57.85px] md:h-[51px] text-white bg-[#FF5151] flex items-center justify-center rounded-lg lg:text-[24px] hover:cursor-pointer font-outfit md:text-[14px]">
+                                        <button className="lg:w-[125px] lg:h-[41px] md:w-[57.85px] md:h-[51px] text-white bg-[#FF5151] flex items-center justify-center rounded-lg lg:text-[24px] hover:cursor-pointer hover:bg-[#FF1717] font-outfit md:text-[14px] z-40">
                                             {item.signIn}
                                         </button>
                                     </div>
