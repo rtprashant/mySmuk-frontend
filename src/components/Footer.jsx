@@ -15,22 +15,22 @@ function Footer() {
         const handleResize = () => setWindowWidth(window.innerWidth);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []); // Empty dependency array to add the event listener only once
+    }, []); 
 
     const getVisibleSections = () => {
         if (windowWidth < 580) {
-            return ['Company']; // Mobile: Only Company
+            return ['Company'];
         } else if (windowWidth < 1024) {
-            return ['Company', 'Contact']; // Tablet: Company and Contact
+            return ['Company', 'Contact']; 
         } else {
-            return ['Company', 'Contact', 'Career', 'Social']; // Desktop: All sections
+            return ['Company', 'Contact', 'Career', 'Social']; 
         }
     };
 
     const visibleSections = getVisibleSections();
 
     return (
-        <div className="w-full  h-[265px] bg-[#FFC7C7] mt-32  flex flex-row items-center justify-between px-8 sm:px-8 md:px-16 lg:px-32">
+        <div className="  h-[265px] bg-[#FFC7C7] mt-32  flex flex-row items-center justify-between px-8 sm:px-8 md:px-16 lg:px-32">
             {/* Left Section (mySmuk) */}
             {footer.find((itm) => itm.id === 1) && (
                 <div className="w-fit flex flex-col items-start">
@@ -42,7 +42,7 @@ function Footer() {
             )}
 
             {/* Right Section (Dynamic Sections) */}
-            <div className="flex flex-row flex-nowrap gap-8 sm:gap-6 md:gap-12 lg:gap-20 ml-16 sm:ml-16 lg:ml-16 md:ml-16">
+            <div className="flex flex-row flex-nowrap gap-8 sm:gap-6 md:gap-12 lg:gap-20 ml-10 sm:ml-16 lg:ml-16 md:ml-16">
                 {footer.find((itm) => itm.id === 2)?.part?.map((i) => (
                     <div key={i.pid}>
                         {i.Company && visibleSections.includes('Company') && (
