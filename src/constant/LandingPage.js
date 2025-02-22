@@ -29,7 +29,7 @@ export const HeroSection = [
             {
                 fid : 1,
                 title : "Instant Booking",
-                para : "Select your date and confirm with just a few clicks—no hassle, no delays."
+                para : "Select your date and confirm with just a few clicks—no hassle, no delays. dhjsfh kjfj jkdsf "
             },
             {
                 fid : 2,
@@ -44,4 +44,56 @@ export const HeroSection = [
         ]
         
     }
+]
+export const footer = [
+    {
+        id: 1 ,
+        title : "mySmuk",
+        content : "@2025 mySmuk Limited"
+    },
+    {
+        id: 2 ,
+        part : [
+            {
+                pid: 1 ,
+                Company : {
+                    title : "Company",
+                    aboutUs : "About us",
+                    legal : "Legal",
+                    terms : "Terms & Condition",
+                    privacy : "Privacy"
+                }
+            },
+            {
+                pid: 2 ,
+                Contact : {
+                    title : "Contact Us", 
+                    help : "Help & Support",
+                    partner : "Partner with us",
+                    Faq : "FAQ",
+                  
+                },
+                
+            },
+            {
+                pid: 3 ,
+                Career : {
+                    title : "Career", 
+                    job : "Jobs",
+                    life : "Life At mySmuk",
+                    
+                },
+        
+            },
+            {
+                pid: 4 ,
+                Social : {
+                    title : "Social Links",  
+                }
+        
+            }
+        ]
+    }
+    
+       
 ]

@@ -19,11 +19,11 @@ function MobileApp() {
               <img src="hg" className='h-44 w-40'/>
             </div>
           </div>
-          <div className='flex flex-col gap-5 items-center mt-5'>
+          <div className='flex flex-col gap-5 ml-5 mt-5'>
             <h1 className='text-[#787878] font-outfit text-[32px]'> Download App From</h1>
-            <div className='flex gap-2 '>
-              <img src={playstore} alt=""  className='bg-[#D9D9D9] rounded-lg'/>
-              <img src={appStore} alt="" className='bg-[#D9D9D9] rounded-lg' />
+            <div className='flex gap-2 -mt-5 '>
+              <img src={playstore} alt=""  className='bg-[#] rounded-lg'/>
+              <img src={appStore} alt="" className='bg rounded-lg' />
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@ import Feature from './components/landingpage/Feature'
 import Listing from './components/landingpage/Listing'
 import Reviews from './components/landingpage/Reviews'
 import MobileApp from './components/landingpage/MobileApp'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <Listing/>
       <Reviews/>
       <MobileApp/>
+      <Footer/>
     </div>
   )
 }

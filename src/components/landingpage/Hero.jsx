@@ -16,9 +16,9 @@ function Hero() {
         <div key={itm.id}>
             {
                 itm.id ==1 &&(
-                    <div className=' lg:-ml-5'>
+                    <div className=' lg:-ml-5 flex flex-col justify-center '>
                         <h1 className='w-full leading-[4rem] text-center  font-outfit text-[62px] text-[#787878]'>{itm.title}</h1>
-                        <p className='font-roboto text-center text-[#5E5E5E] mt-5 -ml-10'>{itm.para}</p>
+                        <p className='font-roboto text-center text-[#5E5E5E] mt-5  w-[90%] self-center '>{itm.para}</p>
                     </div>
                 )
             }

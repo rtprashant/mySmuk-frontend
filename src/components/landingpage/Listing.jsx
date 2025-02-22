@@ -14,9 +14,7 @@ function Listing() {
       <ListingBox className="flex-grow"/>
       <ListingBox className="flex-grow"/>
       </div>
-      <div className='flex justify-center'>
-        <button className='h-[64px] w-[190px] text-white bg-[#FF5151] font-outfit text-[20px] rounded-xl mt-10'>More Result...</button>
-      </div>
+    
     </div>
   )
 }
