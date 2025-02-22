@@ -4,12 +4,12 @@ import { IoReorderThree } from "react-icons/io5";
 function MobileMenu() {
   return (
     <div>
-        <div className="sm:hidden block">
+        <div className="sm:hidden block z-50 ">
                 {navBar.map((item) => (
                     <div key={item.id}>
                         {item.id === 1 && (
                             <div className="flex  w-full p-2">
-                                <div className="flex w-[163px] h-[45px]  items-center">
+                                <div className="flex w-[163px] h-[45px] ml-2  items-center">
                                     <h1 className="text-[#FFFFFF] font-outfit text-[36px]">
                                         {item.comapnayFirstName}
                                     </h1>

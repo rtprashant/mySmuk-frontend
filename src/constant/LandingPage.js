@@ -29,7 +29,7 @@ export const HeroSection = [
             {
                 fid : 1,
                 title : "Instant Booking",
-                para : "Select your date and confirm with just a few clicks—no hassle, no delays. dhjsfh kjfj jkdsf "
+                para : "Select your date and confirm with just a few clicks—no hassle, no delays. "
             },
             {
                 fid : 2,

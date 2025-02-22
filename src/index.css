@@ -5,3 +5,6 @@
   --font-roboto: "Roboto", sans-serif; 
   --font-outfit : "DM Sans" , serif;
 }
+.swiper-pagination {
+  display: none !important;
+}

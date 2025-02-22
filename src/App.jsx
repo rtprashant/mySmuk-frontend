@@ -16,7 +16,7 @@ function App() {
           <Header className="sm:block hidden " />
         </div>
         <div className='-mt-12'>
-          <MobileMenu className="sm:hidden block " />
+          <MobileMenu className="sm:hidden block  " />
         </div>
       </div>
       <Hero/>

@@ -4,7 +4,7 @@ import { IoStar } from "react-icons/io5";
 
 function ReviewBox() {
   return (
-    <div className='w-[410px] h-[92px] bg-black p-3 flex gap-3'>
+    <div className='w-[410px] h-[92px] bg-black p-3 flex gap-3 '>
         <div>
             <CgProfile className=' text-white size-[40px]'/>
         </div>
