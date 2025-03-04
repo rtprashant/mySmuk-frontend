@@ -11,7 +11,7 @@ function Reviews() {
   return (
     <div className='w-full mt-20 '>
       <div className='flex justify-center'>
-        <h1 className='font-outfit text-[#787878] lg:text-[64px] md:text-[64px] text-[24px] sm:text-[48px]'>Customer Reviews</h1>
+        <h1 className=' text-[#000000]  font-oswald lg:text-[64px] md:text-[64px] text-[24px] sm:text-[48px]'>Customer Reviews</h1>
       </div>
       <div className='flex  px-2 lg:pl-14 sm:justify-center mt-10 justify-center'>
       <Swiper

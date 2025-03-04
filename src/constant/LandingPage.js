@@ -6,14 +6,43 @@ export const navBar = [
     },
     {   
         id: 2,
-        home : "Home",
-        about : "About",
-        conatct : "Contact"
+        content :[
+            {
+                fid:1,
+                title:"Home",
+                url:"/",
+            },
+            {
+                fid:2,
+                title:"About",
+                url:"/about",
+            },
+            {
+                fid:3,
+                title:"Contact",
+                url:"/contact",
+            },
+            
+        ]
+       
     },
     {   
         id: 3,
-        addRest : "Join Us +",
-        signIn : "Sign In"
+        btn :[
+            {
+                fid:1,
+                title:"Join Us +",
+                url:"/join-us",
+            },
+            {
+                fid:2,
+                title:"Sign In",
+                url:"/auth",
+            },
+           
+            
+        ]
+      
     }
 ]
 

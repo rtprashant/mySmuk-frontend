@@ -20,7 +20,7 @@ function MobileApp() {
         <div className='w-full sm:w-[50%] flex flex-col items-center sm:items-start relative'>
         
           <div className="w-full md:w-[363px] md:h-[45px] lg:w-[560px] lg:h-[60px] flex justify-center ">
-            <h2 className="text-[#787878] font-outfit text-[24px] sm:text-[36px] md:text-[48px] text-center">
+            <h2 className="text-[#000000] font-oswald text-[24px] sm:text-[36px] md:text-[48px] text-center">
               Get The MySmuk App
             </h2>
           </div>
@@ -28,7 +28,7 @@ function MobileApp() {
 
        
           <div className='flex flex-col items-center  mt-5 lg:mt-10 md:mt-28 sm:ml-20 lg:ml-52 md:ml-28'>
-            <p className='text-[#787878] font-outfit md:w-[158px] md:h-[25px]  sm:w-[200px] sm:h-[15px] sm:text-[18px]'>
+            <p className='text-[] font-oswald md:w-[158px] md:h-[25px]  sm:w-[200px] sm:h-[15px] sm:text-[18px]'>
               Scan to Download
             </p>
             <div className='mt-4'>
@@ -37,7 +37,7 @@ function MobileApp() {
           </div>
 
           <div className='flex flex-col gap-5 mt-5 '>
-            <h1 className="text-[#787878] font-outfit text-[24px]  text-center">
+            <h1 className="text-[] font-oswald text-[24px]  text-center">
               Download App From
             </h1>
             <div className="flex gap-5 justify-center  sm:w-[350px] lg:w-[525px] md:w-[350px]  mx-auto">
