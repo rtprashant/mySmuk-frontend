@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { auth } from '../../constant/auth'
-import { FaFacebook, FaFileMedical, FaMailchimp } from 'react-icons/fa6'
-import { FaMailBulk } from 'react-icons/fa'
+import { FaFacebook } from 'react-icons/fa6'
 import { MdEmail } from "react-icons/md";
 import { FaGoogle } from "react-icons/fa";
 import { FaApple } from "react-icons/fa";
@@ -126,7 +125,7 @@ function Login() {
       </div>
 
     ) : (
-      <div className='sm:w-[70%] md:w-[70%] bg-white lg:w-[50%] flex flex-col md:gap-3 lg:gap-4 md:px-3 border-b-2 p-3 rounded-xl border-r-2 border-gray-500 lg:p-5 lg:px-5'>
+      <div className='w-92 sm:w-[70%] md:w-[70%] bg-white lg:w-[50%] flex flex-col md:gap-3 lg:gap-4 md:px-3 border-b-2 p-3 rounded-xl border-r-2 border-gray-500 lg:p-5 lg:px-5'>
         <div className='flex flex-col'>
           <div className='w-full sm:text-[35px] lg:text-[51px] font-oswald'>
             {auth.signUp.title}
@@ -188,7 +187,7 @@ function Login() {
             </div>
           </div>
         </div>
-        <div className=' flex justify-center '>
+        <div className=' flex justify-center mt-2'>
           <button className='bg-[#FF1C1C] font-outfit text-[15px] text-white px-4 py-1 rounded-md hover:cursor-pointer'>
             {auth.signUp.create}
           </button>
