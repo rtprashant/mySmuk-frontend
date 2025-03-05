@@ -6,7 +6,7 @@ export const auth = {
         mobile : "Mobile Number",
         otp : "Send OTP",
         otpBox : "Enter Otp",
-        otpBoxText : "A Otp is Sent On Your Moblie Number",
+        otpBoxText : "An Otp is sent On your moblie number",
         or : "Or",
         email : "Continue with Email",
         google : "Continue with Google",
@@ -29,6 +29,7 @@ export const auth = {
         Day : "Day",
         create: "Create account",
         or : "Or",
+        otpBoxText :"An Otp is sent on your email"
         
     }
 
