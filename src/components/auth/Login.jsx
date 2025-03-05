@@ -30,9 +30,9 @@ function Login() {
             mobileNumberOtp ? (
 
               <motion.div className='flex flex-col gap-2'
-              initial={{ x: -25, opacity: 0 }} 
+              initial={{ x: -100, opacity: 0 }} 
               animate={{ x: 0, opacity: 1 }} 
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              transition={{ duration: 0.5, ease: "circOut" }}
               >
                 <div>
                   <label htmlFor="mobileNumber" className='text-[]'>{auth.signIn.otpBox} </label>
@@ -148,9 +148,9 @@ function Login() {
           {
             emailOtp ? (
               <motion.div className='flex flex-col gap-2'
-              initial={{ x: -25, opacity: 0 }} 
+              initial={{ x: -100, opacity: 0 }} 
               animate={{ x: 0, opacity: 1 }} 
-              transition={{ duration: 0.5, ease: "easeOut" }}>
+              transition={{ duration: 0.5, ease: "circOut" }}>
 
                 <div>
                   <label htmlFor="mobileNumber" className='text-[]'>{auth.signIn.otpBox} </label>
