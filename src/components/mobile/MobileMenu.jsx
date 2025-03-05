@@ -4,7 +4,7 @@ import { IoReorderThree } from "react-icons/io5";
 import MobileMenuSideBar from './MobileMenuSideBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { openMenu } from '../../redux/feature/MobileMenu/MobileMenu';
-function MobileMenu() {
+function MobileMenu({setSignInPopUp}) {
     
     const { sideBar } = useSelector(state=>state.menu)
     const dispatch = useDispatch()
@@ -50,7 +50,7 @@ function MobileMenu() {
             {
                 sideBar && (
                     <div className='w-full'>
-                        <MobileMenuSideBar />
+                        <MobileMenuSideBar setSignInPopUp={setSignInPopUp}/>
                     </div>
                 )
             }

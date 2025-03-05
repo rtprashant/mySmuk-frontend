@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeMenu } from '../../redux/feature/MobileMenu/MobileMenu';
 
-function MobileMenuSideBar() {
+function MobileMenuSideBar( { setSignInPopUp }) {
     const { sideBar } = useSelector(state=>state.menu)
     const dispatch = useDispatch()
     const currentRef = useRef()
@@ -45,7 +45,7 @@ function MobileMenuSideBar() {
                   key={i.fid} 
                   className={({ isActive }) => 
                     `flex font-oswald p-2 rounded-2xl transition duration-300 ${
-                      isActive ? 'bg-gray-500 text-white' : 'bg-white text-black'
+                      isActive ? 'bg-[#FF1C1C] text-white' : 'bg-white text-black'
                     }`
                   }
                 >
@@ -54,6 +54,14 @@ function MobileMenuSideBar() {
               ))}
             </div>
           ))}
+          <div className='w-full '>
+            <p className='flex font-oswald p-2 rounded-2xl transition duration-300 hover:cursor-pointer'>{navBar[2].btn[0].title}</p>
+            <p  className='flex font-oswald p-2 rounded-2xl transition duration-300 hover:cursor-pointer' 
+            onClick={()=>{
+            dispatch(closeMenu())
+            setSignInPopUp(true)}
+          }>{navBar[2]?.btn[1].title}</p>
+          </div>
         </div>
       </div>
     </div>
