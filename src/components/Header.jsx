@@ -6,7 +6,7 @@ import Login from './auth/Login';
 function Header({setSignInPopUp}) {
     const navigate = useNavigate()
     const [scrollDirection, setScrollDirection] = useState("up");
-    // const [signInPopUp, setSignInPopUp] = useState(false)
+    const [scrolledMoreThanHalf , setScrolledMoreThanHalf] = useState(false)
 
     useEffect(() => {
         let lastScrollY = window.scrollY;
@@ -23,22 +23,42 @@ function Header({setSignInPopUp}) {
         window.addEventListener("scroll", updateScrollDirection);
         return () => window.removeEventListener("scroll", updateScrollDirection);
     }, []);
+
+    useEffect(()=>{
+        let height = window.innerHeight/8
+        let lastScroll = window.scrollY
+        const handleScroll = () => {
+            if (lastScroll > height) {
+                setScrolledMoreThanHalf(true)
+                console.log(scrolledMoreThanHalf);
+                
+            }else{
+              setScrolledMoreThanHalf(false)
+            }
+            lastScroll = window.scrollY
+        }
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    } , [])
     
     return (
-        <div className='w-full'>
-            <motion.div className='z-50 fixed w-full bg-r flex justify-center '
+        <div className=' w-full mt- bg-'>
+            <motion.div className={`z-50 fixed w-full bg-r flex justify-center  `}
                 initial={{ y: 0, opacity: 1 }}
                 animate={{
-                    opacity: scrollDirection === "down" ? 0 : 1,
-                }}>
-                <div className="flex sm:flex   h-[45px] md:w-[620px] md:h-[52px] lg:w-[1186px]   lg:h-[80px] sm:bg-[#] ">
+                    y: scrollDirection === "down" ? 0 : 0,
+                    opacity: scrollDirection === "down" ? 1 : 1,
+                }}
+                transition={{ duration: 0.3 }}>
+                <div className={`flex sm:flex   h-[45px] md:w-[620px] md:h-[52px] lg:w-[1186px]   lg:h-[80px] ${ scrolledMoreThanHalf ? 'bg-white shadow-md' : 'bg-transparent'} `}>
+              
                     {navBar.map((item, index) => (
                         <div key={index} className="flex items-center  ">
                             <motion.div className=''
                                 initial={{ y: 0, opacity: 1 }}
                                 animate={{
                                     y: scrollDirection === "down" ? -15 : 0,
-                                    opacity: scrollDirection === "down" ? 0 : 1,
+                                  
                                 }}
                                 transition={{ duration: 0.3 }}>
                                 {/* Company Name Section */}
@@ -58,7 +78,7 @@ function Header({setSignInPopUp}) {
                                     initial={{ y: 0, opacity: 1 }}
                                     animate={{
                                         y: scrollDirection === "down" ? -15 : 0,
-                                        opacity: scrollDirection === "down" ? 0 : 1,
+                                     
                                     }}>
                                     {item.id === 2 && (
                                         <div className="flex font-roboto lg:gap-10 md:gap-5 text-[#000000] lg:ml-52 md:ml-16">
@@ -80,7 +100,7 @@ function Header({setSignInPopUp}) {
                                             initial={{ y: 0, opacity: 1 }}
                                             animate={{
                                                 y: scrollDirection === "down" ? -15 : 0,
-                                                opacity: scrollDirection === "down" ? 0 : 1,
+                                               
                                             }}>
 
                                             {<div className='flex gap-2'>

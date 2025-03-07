@@ -152,10 +152,10 @@ function App() {
         
           <div className="relative bg-[#ECECEC] p-5 rounded-lg w-[60%] h-[90%] sm:block hidden" ref={currentRef}>
             <button
-              className="absolute top-2 right-2 text-xl text-black hover:cursor-pointer"
+              className="absolute top-4 right-4 text-[40px] font-extrabold text-red-500 bg-white shadow-gray-500 shadow-lg hover:cursor-pointer  p-2 rounded-full"
               onClick={() => setSignInPopUp(false)}
             >
-              <RxCross2 />
+              <RxCross2 className='lg:size-10 md:size-8 sm:size-8 size-8 '/>
             </button>
             <div className='flex justify-center items-center h-full'>
               <Login />
