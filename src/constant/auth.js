@@ -3,17 +3,18 @@ export const auth = {
         title : "Sign In",
         newUser : "New User ?",
         create : "Create an account",
-        mobile : "Mobile Number",
+        mobile : "E-mail",
         otp : "Send OTP",
         otpBox : "Enter Otp",
-        otpBoxText : "An Otp is sent On your moblie number",
+        otpBoxText : "An Otp is sent On your E-mail",
         or : "Or",
         email : "Continue with Email",
         google : "Continue with Google",
         facebook : "Continue with Facebook",
         apple : "Contiue With Apple",
         trouble : "Facing any trouble ?",
-        submit : "Login"
+        submit : "Login",
+        createing:"Loging You In "
     },
     signUp : {
         title : "Create an account",
@@ -29,7 +30,9 @@ export const auth = {
         Day : "Day",
         create: "Create account",
         or : "Or",
-        otpBoxText :"An Otp is sent on your email"
+        otpBoxText :"An Otp is sent on your email",
+        otp:"Enter Otp",
+        createing:"Signing up"
         
     }
 

@@ -3,10 +3,34 @@ import { navBar } from '../constant/LandingPage';
 import { useNavigate } from 'react-router-dom';
 import { motion } from "motion/react"
 import Login from './auth/Login';
-function Header({setSignInPopUp}) {
+import { useSelector } from 'react-redux';
+function Header({ setSignInPopUp }) {
+    // const { user } = useSelector((state) => state.signIn)
     const navigate = useNavigate()
     const [scrollDirection, setScrollDirection] = useState("up");
-    const [scrolledMoreThanHalf , setScrolledMoreThanHalf] = useState(false)
+    const [scrolledMoreThanHalf, setScrolledMoreThanHalf] = useState(false)
+    const [name, setName] = useState('')
+    const [ user , setUser] = useState(false)
+    useEffect(() => {
+        const handleName = () => {
+            const name = localStorage.getItem('loggedInUser')
+            if(name){
+                const { firstName} = JSON.parse(name)
+            if (!firstName) {
+                console.error("No user found in localStorage");
+                return;
+            }else{
+                const name = firstName.charAt(0)
+                setName(name)
+                setUser(true)
+                }
+
+            }
+
+        }
+        handleName()
+    }, [user , name , localStorage.getItem('loggedInUser')])
+
 
     useEffect(() => {
         let lastScrollY = window.scrollY;
@@ -24,23 +48,23 @@ function Header({setSignInPopUp}) {
         return () => window.removeEventListener("scroll", updateScrollDirection);
     }, []);
 
-    useEffect(()=>{
-        let height = window.innerHeight/8
+    useEffect(() => {
+        let height = window.innerHeight / 8
         let lastScroll = window.scrollY
         const handleScroll = () => {
             if (lastScroll > height) {
                 setScrolledMoreThanHalf(true)
                 console.log(scrolledMoreThanHalf);
-                
-            }else{
-              setScrolledMoreThanHalf(false)
+
+            } else {
+                setScrolledMoreThanHalf(false)
             }
             lastScroll = window.scrollY
         }
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    } , [])
-    
+    }, [])
+
     return (
         <div className=' w-full mt- bg-'>
             <motion.div className={`z-50 fixed w-full bg-r flex justify-center  `}
@@ -50,15 +74,15 @@ function Header({setSignInPopUp}) {
                     opacity: scrollDirection === "down" ? 1 : 1,
                 }}
                 transition={{ duration: 0.3 }}>
-                <div className={`flex sm:flex   h-[45px] md:w-[620px] md:h-[52px] lg:w-[1186px]   lg:h-[80px] ${ scrolledMoreThanHalf ? 'bg-white shadow-md' : 'bg-transparent'} `}>
-              
+                <div className={`flex sm:flex   h-[45px] md:w-[620px] md:h-[52px] lg:w-[1186px]   lg:h-[80px] ${scrolledMoreThanHalf ? 'bg-white shadow-md' : 'bg-transparent'} `}>
+
                     {navBar.map((item, index) => (
                         <div key={index} className="flex items-center  ">
                             <motion.div className=''
                                 initial={{ y: 0, opacity: 1 }}
                                 animate={{
                                     y: scrollDirection === "down" ? -15 : 0,
-                                  
+
                                 }}
                                 transition={{ duration: 0.3 }}>
                                 {/* Company Name Section */}
@@ -78,7 +102,7 @@ function Header({setSignInPopUp}) {
                                     initial={{ y: 0, opacity: 1 }}
                                     animate={{
                                         y: scrollDirection === "down" ? -15 : 0,
-                                     
+
                                     }}>
                                     {item.id === 2 && (
                                         <div className="flex font-roboto lg:gap-10 md:gap-5 text-[#000000] lg:ml-52 md:ml-16">
@@ -100,7 +124,7 @@ function Header({setSignInPopUp}) {
                                             initial={{ y: 0, opacity: 1 }}
                                             animate={{
                                                 y: scrollDirection === "down" ? -15 : 0,
-                                               
+
                                             }}>
 
                                             {<div className='flex gap-2'>
@@ -112,12 +136,20 @@ function Header({setSignInPopUp}) {
                                                     }}>
                                                     {item.btn[0].title}
                                                 </button>
-                                                <button className="lg:w-[125px] lg:h-[41px] md:w-[57.85px] md:h-[51px] text-white bg-[#f41313] flex items-center justify-center rounded-lg lg:text-[24px] hover:cursor-pointer hover:bg-[#FF1717] font-outfit md:text-[14px] z-50"
-                                                    onClick={() => {
-                                                        setSignInPopUp(true)
-                                                    }}>
-                                                    {item.btn[1].title}
-                                                </button>
+                                                {
+                                                    user ? (
+                                                        <div className='h-12 w-12 text-white bg-[#f41313] rounded-full flex items-center justify-center ml-3 font-semibold cursor-pointer text-[35px]'>
+                                                            {name}
+                                                        </div>
+                                                    ) : (
+                                                        <button className="lg:w-[125px] lg:h-[41px] md:w-[57.85px] md:h-[51px] text-white bg-[#f41313] flex items-center justify-center rounded-lg lg:text-[24px] hover:cursor-pointer hover:bg-[#FF1717] font-outfit md:text-[14px] z-50"
+                                                            onClick={() => {
+                                                                setSignInPopUp(true)
+                                                            }}>
+                                                            {item.btn[1].title}
+                                                        </button>
+                                                    )
+                                                }
                                             </div>
                                             }
 
@@ -144,7 +176,7 @@ function Header({setSignInPopUp}) {
 
 
             </motion.div>
-           
+
         </div>
 
 

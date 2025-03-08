@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import menuReducer from './feature/MobileMenu/MobileMenu'
-
+import menuSlice from './feature/MobileMenu/MobileMenu'
+import signInSlice from'./feature/auth/signIn'
 export const store = configureStore({
   reducer: {
-    menu : menuReducer
+    menu : menuSlice,
+    signIn : signInSlice,
+
   },
 })

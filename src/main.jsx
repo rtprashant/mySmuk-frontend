@@ -10,6 +10,8 @@ import About from './components/about/About.jsx'
 import Contactus from './components/contact/Contactus.jsx'
 import { store } from './redux/store.js'
 import { Provider } from 'react-redux'
+import Signup from './components/auth/Signup.jsx'
+import { Toaster } from 'react-hot-toast';
 
 const AppRouter = () => {
   const route = createBrowserRouter([
@@ -24,8 +26,8 @@ const AppRouter = () => {
 
     },
     {
-      path: '/auth',
-      element: <Login />
+      path: '/auth/:userId',
+      element: <App />
 
     },
     {
@@ -51,8 +53,11 @@ const AppRouter = () => {
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+
     <Provider store={store}>
+      <Toaster />
       <AppRouter />
     </Provider>
+
   </StrictMode>,
 )
