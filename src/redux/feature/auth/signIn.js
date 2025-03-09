@@ -3,6 +3,7 @@ const initialState = {
     errorSignIn : null ,
     user : null,
     loadingSignIn : false ,
+    otploading : false,
 }
 const signInSlice = createSlice({
     name : "signIn",
@@ -27,9 +28,15 @@ const signInSlice = createSlice({
             state.loadingSignIn = false;
             state.errorSignIn = null ;
             state.user = action.payload;
-        }
+        },
+        otpReq : (state)=>{
+            state.otploading = true ;
+        },
+        otpReqSuccess : (state)=>{
+            state.otploading = false;
+        },
     }
 })
 
-export const { signInFailed , signInReq , signInSucces , otpverifeid } = signInSlice.actions
+export const { signInFailed , signInReq , signInSucces , otpverifeid , otpReqSuccess , otpReq } = signInSlice.actions
 export default signInSlice.reducer;

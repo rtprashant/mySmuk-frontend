@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect } from 'react'
 import Select from "react-select";
 import { auth } from '../../constant/auth'
 import { motion } from 'motion/react';
@@ -7,17 +7,55 @@ import { userResgistration, verifyOtp } from '../../api/auth';
 import { useForm, Controller } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { otpverifeid, signInFailed, signInReq, signInSucces } from '../../redux/feature/auth/signIn';
+import { otpReq, otpReqSuccess, otpverifeid, signInFailed, signInReq, signInSucces } from '../../redux/feature/auth/signIn';
 import { LuLoaderCircle } from "react-icons/lu";
 import { toast } from 'react-hot-toast';
+import GoogleLogin from './GoogleLogin';
 function Signup({ setSignIn }) {
   const [emailOtp, setEmailOtp] = useState(false)
   const { register, formState: { errors }, handleSubmit, control } = useForm()
   const { userId } = useParams()
   const naviagte = useNavigate()
-  const { loadingSignIn , user } = useSelector((state) => state.signIn)
+  const { loadingSignIn, user  , otploading } = useSelector((state) => state.signIn)
   const { } = useSelector((state) => state.menu)
   const dispatch = useDispatch()
+  const [resendBtn, setResendBtn] = useState(false)
+    const [resendtime, setResendTime] = useState(60);
+    useEffect(() => {
+      const handleResend = () => {
+        const currentTime = resendtime
+        if (currentTime === 0) {
+          setResendBtn(true)
+        } else {
+          setResendBtn(false);
+          const time = setTimeout(() => {
+            setResendTime(currentTime - 1)
+          }, 1000);
+        }
+       
+      }
+      if(emailOtp){
+        handleResend()
+      }
+      
+    }, [resendtime , emailOtp])
+  
+    const handleResendOtp = async () => {
+      try {
+        dispatch(otpReq())
+        const res = await resendOtp(userId)
+        toast.success(res.message)
+        if (res.success) {
+          setResendTime(60)
+        }
+        dispatch(otpReqSuccess())
+      } catch (error) {
+        toast.error(error.message)
+        dispatch(otpReqSuccess())
+        console.log(error);
+
+      }
+    }
   const days = Array.from({ length: 31 }, (_, i) => ({ value: i + 1, label: i + 1 }));
   const months = [
     { value: 1, label: "January" },
@@ -74,25 +112,25 @@ function Signup({ setSignIn }) {
       console.log(userId);
       const res = await verifyOtp(e, userId)
       console.log(res);
-      
+
       toast.success(res.message, {
         position: "top-right",
       })
       dispatch(otpverifeid(res.data.loggedInUser))
       console.log(res.data.loggedInUser);
-      
+
       console.log(user);
-      
+
 
       const expiresIn = res.data.accessTokenExpiryTime
       console.log(expiresIn);
-      
+
       const expiryTime = new Date().getTime() + expiresIn;
-      console.log(expiryTime +"expiry time");
-      
+      console.log(expiryTime + "expiry time");
+
       const loggedInUser = res.data.loggedInUser;
       console.log(loggedInUser);
-      
+
       localStorage.setItem("loggedInUser", JSON.stringify({ ...loggedInUser, expiryTime }))
       if (res.success) {
         naviagte('/')
@@ -103,10 +141,10 @@ function Signup({ setSignIn }) {
         position: "top-right",
       })
       console.log(error.response.data.message);
-      
+
       dispatch(signInFailed(error.response.data.data))
       console.log(error.response.data.data);
-      
+
     }
 
   }
@@ -367,6 +405,30 @@ function Signup({ setSignIn }) {
         }
 
       </form>
+      {
+        emailOtp && (
+          <div className=' flex justify-center sm:mt-2 md:mt-0 mt-2 '>
+            <button type='submit'
+              onClick={handleResendOtp}
+              disabled={!resendBtn}
+              className={`${(resendBtn && !otploading) ? "bg-[#FF1C1C]" : "bg-gray-400"} font-outfit text-[15px] flex justify-center items-center gap-2 text-white px-4 py-1 rounded-md hover:cursor-pointer`}>
+              {
+                resendBtn ? <div>
+                  {
+                    otploading ? <div className='flex gap-1 font-oswald'>
+                      <p>{auth.signIn.otpResendIng}</p>
+                      <LuLoaderCircle className='animate-spin mt-1 ' />
+
+                    </div> : <p>{auth.signIn.otpResend}</p>
+                  }
+                </div> : <div className='flex gap-1'><p>{auth.signIn.otpResend} in :</p>
+                  {resendtime}
+                </div>
+              }
+            </button>
+          </div>
+        )
+      }
 
       <div className="flex items-center gap-2">
         <div className="flex-grow border-t border-gray-400"></div>
@@ -374,14 +436,15 @@ function Signup({ setSignIn }) {
         <div className="flex-grow border-t border-gray-400"></div>
       </div>
       <div className='w-full flex gap-6 justify-center items-center pb-5'>
-        <button className='py-1 font-outfit text-[15px] flex justify-center items-center gap-2  w-full border rounded-3xl hover:cursor-pointer'>
+        {/* <button className='py-1 font-outfit text-[15px] flex justify-center items-center gap-2  w-full border rounded-3xl hover:cursor-pointer'>
           <div className=' flex justify-center h-8'>
             <img src={google} alt="google" />
           </div>
           <div className='flex justify-center items-center '>
             {auth.signIn.google}
           </div>
-        </button>
+        </button>  */}
+        <GoogleLogin />
 
       </div>
     </div>

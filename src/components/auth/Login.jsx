@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { auth } from '../../constant/auth'
 import { MdEmail } from "react-icons/md";
 import google from '../../assets/google.png'
@@ -10,16 +10,55 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { LuLoaderCircle } from "react-icons/lu";
 import { toast } from 'react-hot-toast';
-import { otpverifeid, signInFailed, signInReq, signInSucces } from '../../redux/feature/auth/signIn';
-import { userLogin, verifyOtp } from '../../api/auth';
+import { otpReq, otpReqSuccess, otpverifeid, signInFailed, signInReq, signInSucces } from '../../redux/feature/auth/signIn';
+import { resendOtp, userLogin, verifyOtp } from '../../api/auth';
+import GoogleLogin from './GoogleLogin';
 function Login() {
   const [login, setLogin] = useState(true)
   const [emailOtp, setEmailOtp] = useState(false)
   const naviagte = useNavigate()
   const { userId } = useParams()
-  const { loadingSignIn, user } = useSelector((state) => state.signIn)
+  const { loadingSignIn, user , otploading } = useSelector((state) => state.signIn)
   const dispatch = useDispatch()
   const { register, formState: { errors }, handleSubmit } = useForm()
+  const [resendBtn, setResendBtn] = useState(false)
+  const [resendtime, setResendTime] = useState(60);
+  useEffect(() => {
+    const handleResend = () => {
+      const currentTime = resendtime
+      if (currentTime === 0) {
+        setResendBtn(true)
+      } else {
+        setResendBtn(false);
+        const time = setTimeout(() => {
+          setResendTime(currentTime - 1)
+        }, 1000);
+      }
+     
+    }
+    if(emailOtp){
+      handleResend()
+    }
+    
+  }, [resendtime , emailOtp])
+
+  const handleResendOtp = async () => {
+    try {
+      dispatch(otpReq())
+      const res = await resendOtp(userId)
+      toast.success(res.message)
+      if (res.success) {
+        setResendTime(60)
+      }
+      dispatch(otpReqSuccess())
+    } catch (error) {
+      toast.error(error.message)
+      dispatch(otpReqSuccess())
+      console.log(error);
+
+
+    }
+  }
   const handleSignIn = async (data) => {
     try {
       console.log(data);
@@ -30,7 +69,7 @@ function Login() {
       })
       setEmailOtp(true)
       console.log(res.data.loggedInUser._id);
-      
+
       naviagte(`/auth/${res.data.loggedInUser._id}`)
       dispatch(signInSucces())
     } catch (error) {
@@ -145,6 +184,8 @@ function Login() {
                     )
                   }
                 </div>
+
+
               </motion.div>
 
             ) : (
@@ -177,25 +218,52 @@ function Login() {
                     )
                   }
                 </div>
+
               </div>
             )
           }
 
         </form>
+        {
+          emailOtp && (
+            <div className=' flex justify-center sm:mt-2 md:mt-0 mt-2 '>
+              <button type='submit'
+                onClick={handleResendOtp}
+                disabled={!resendBtn}
+                className={`${(resendBtn && !otploading) ? "bg-[#FF1C1C]" : "bg-gray-400"} font-outfit text-[15px] flex justify-center items-center gap-2 text-white px-4 py-1 rounded-md hover:cursor-pointer`}>
+                {
+                  resendBtn ? <div>
+                    {
+                      otploading ? <div className='flex gap-1 font-oswald'>
+                        <p>{auth.signIn.otpResendIng}</p>
+                        <LuLoaderCircle className='animate-spin mt-1 ' />
+
+                      </div>:<p>{auth.signIn.otpResend}</p>
+                    }
+                  </div> : <div className='flex gap-1'><p>{auth.signIn.otpResend} in :</p>
+                    {resendtime}
+                  </div>
+                }
+              </button>
+            </div>
+          )
+        }
+
         <div className="flex items-center gap-2">
           <div className="flex-grow border-t border-gray-400"></div>
           <div className="text-black font-medium font-outfit text-[24px]">Or</div>
           <div className="flex-grow border-t border-gray-400"></div>
         </div>
         <div className='flex flex-col  gap-3'>
-          <button className='py-1 font-outfit text-[15px] flex justify-center items-center gap-2  w-full border rounded-3xl hover:cursor-pointer'>
+          {/* <button className='py-1 font-outfit text-[15px] flex justify-center items-center gap-2  w-full border rounded-3xl hover:cursor-pointer'>
             <div className=' flex justify-center h-8  pl-2'>
               <img src={google} alt="google" />
             </div>
             <div className='flex justify-center items-center '>
               {auth.signIn.google}
             </div>
-          </button>
+          </button> */}
+          <GoogleLogin />
 
         </div>
         <div className='w-full '>

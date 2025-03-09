@@ -4,13 +4,15 @@ import { navBar } from '../../constant/LandingPage';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeMenu } from '../../redux/feature/MobileMenu/MobileMenu';
+import Logout from '../auth/Logout';
 
-function MobileMenuSideBar({ setSignInPopUp }) {
+function MobileMenuSideBar({ setSignInPopUp , setLogout }) {
   const { sideBar } = useSelector(state => state.menu)
   const dispatch = useDispatch()
   const currentRef = useRef()
   const [name, setName] = useState('')
   const [user, setUser] = useState(false)
+  
   useEffect(() => {
     const handleName = () => {
       const name = localStorage.getItem('loggedInUser')
@@ -89,7 +91,16 @@ function MobileMenuSideBar({ setSignInPopUp }) {
           <div className='w-full '>
             <p className='flex font-oswald p-2 rounded-2xl transition duration-300 hover:cursor-pointer'>{navBar[2].btn[0].title}</p>
             {
-              user ? <div></div> : (
+              user ?(
+                <div className='flex font-oswald p-2 rounded-2xl transition duration-300 hover:cursor-pointer'
+                onClick={() => {
+                  dispatch(closeMenu())
+                  setLogout(true)
+                  
+                }
+                }>Logout</div >
+              )
+               : (
                 <p className='flex font-oswald p-2 rounded-2xl transition duration-300 hover:cursor-pointer'
                   onClick={() => {
                     dispatch(closeMenu())

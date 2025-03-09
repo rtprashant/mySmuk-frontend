@@ -14,9 +14,13 @@ export const auth = {
         apple : "Contiue With Apple",
         trouble : "Facing any trouble ?",
         submit : "Login",
-        createing:"Loging You In "
+        createing:"Loging You In ",
+        otpResend : "Resend OTP ",
+        otpResendIng :"Sending OTP"
     },
     signUp : {
+        otpResendIng :"Sending OTP",
+        otpResend : "Resend OTP ",
         title : "Create an account",
         existingUser : "Already have an account ?",
         signIn : "Sign In",

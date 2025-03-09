@@ -4,7 +4,7 @@ import { IoReorderThree } from "react-icons/io5";
 import MobileMenuSideBar from './MobileMenuSideBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { openMenu } from '../../redux/feature/MobileMenu/MobileMenu';
-function MobileMenu({setSignInPopUp}) {
+function MobileMenu({setSignInPopUp , setLogout}) {
     
     const { sideBar } = useSelector(state=>state.menu)
     const dispatch = useDispatch()
@@ -26,7 +26,7 @@ function MobileMenu({setSignInPopUp}) {
 
     return (
         <div>
-            <div className="sm:hidden block z-50  mt-8 fixed w-full bg-white">
+            <div className="sm:hidden block z-50  mt-12 fixed w-full bg-white">
                 {navBar.map((item) => (
                     <div key={item.id}>
                         {item.id === 1 && (
@@ -50,7 +50,7 @@ function MobileMenu({setSignInPopUp}) {
             {
                 sideBar && (
                     <div className='w-full'>
-                        <MobileMenuSideBar setSignInPopUp={setSignInPopUp}/>
+                        <MobileMenuSideBar setSignInPopUp={setSignInPopUp} setLogout={setLogout}/>
                     </div>
                 )
             }

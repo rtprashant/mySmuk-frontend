@@ -12,6 +12,7 @@ import { store } from './redux/store.js'
 import { Provider } from 'react-redux'
 import Signup from './components/auth/Signup.jsx'
 import { Toaster } from 'react-hot-toast';
+import { GoogleOAuthProvider } from '@react-oauth/google'
 
 const AppRouter = () => {
   const route = createBrowserRouter([
@@ -56,7 +57,9 @@ createRoot(document.getElementById('root')).render(
 
     <Provider store={store}>
       <Toaster />
-      <AppRouter />
+      <GoogleOAuthProvider clientId='1025749040549-vu4olhae365bgr5vfsnqhl30crp6spj1.apps.googleusercontent.com'>
+        <AppRouter />
+      </GoogleOAuthProvider>
     </Provider>
 
   </StrictMode>,

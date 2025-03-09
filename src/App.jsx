@@ -14,6 +14,7 @@ import { otpverifeid } from './redux/feature/auth/signIn';
 
 function App() {
   const [signInPopUp, setSignInPopUp] = useState(false);
+  const [logout, setLogout] = useState(false)
   const currentRef = useRef(null);
   const currentRefMobile = useRef(null);
   const { user } = useSelector((state) => state.signIn);
@@ -83,7 +84,7 @@ function App() {
           <Header setSignInPopUp={setSignInPopUp} className="sm:block hidden" />
         </div>
         <div className='-mt-12'>
-          <MobileMenu setSignInPopUp={setSignInPopUp} className="sm:hidden block" />
+          <MobileMenu setSignInPopUp={setSignInPopUp} setLogout={setLogout} className="sm:hidden block" />
         </div>
       </div>
       <Hero />
@@ -112,6 +113,29 @@ function App() {
           </div>
         </div>
       )}
+      {/* {
+        setLogout && (
+          <div className='fixed top-0 left-0 w-full h-screen flex justify-center items-center bg-black/50 z-50'>
+
+            <div className="relative bg-[#ECECEC] p-5 rounded-lg w-[60%] h-[93%] sm:block hidden" >
+              <button
+                className="absolute top-4 right-4 text-[40px] font-extrabold text-red-500 bg-white shadow-gray-500 shadow-lg hover:cursor-pointer  p-2 rounded-full"
+                onClick={() => setLogout(false)}
+              >
+                <RxCross2 className='lg:size-10 md:size-8 sm:size-8 size-8 ' />
+              </button>
+              <div className='flex justify-center items-center h-full'>
+               
+              </div>
+            </div>
+
+            <div className='sm:hidden block' >
+              
+            </div>
+          </div>
+
+        )
+      } */}
     </div>
   );
 }
