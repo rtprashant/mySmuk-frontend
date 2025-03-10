@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 import Login from './components/auth/Login';
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from 'react-redux';
-import { otpverifeid } from './redux/feature/auth/signIn';
+import { logoutSuccess, otpverifeid } from './redux/feature/auth/signIn';
 
 function App() {
   const [signInPopUp, setSignInPopUp] = useState(false);
@@ -57,24 +57,36 @@ function App() {
   }, [user]);
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    const expiryTime = JSON.parse(localStorage.getItem("expiryTime"));
+    console.log(typeof expiryTime);
+    
+    console.log(`expiry time ${expiryTime}`);
     console.log(storedUser);
 
 
     if (storedUser) {
       const currentTime = new Date().getTime();
+      console.log(`expiry timee ${storedUser.expiryTime}`);
+      
       console.log(`current time ${currentTime}`);
       console.log(`is current time grater thn expiry time ${currentTime >= storedUser.expiryTime}`);
 
 
-      if (currentTime >= storedUser.expiryTime) {
+      if (currentTime >= expiryTime) {
         alert(`token expiry`)
         localStorage.removeItem("loggedInUser");
-        // dispatch(logout());
+        localStorage.removeItem("expiryTime");
+        dispatch(logoutSuccess());
       } else {
         dispatch(otpverifeid(storedUser));
       }
     }
-  }, [dispatch]);
+  }, []);
+
+  setTimeout(()=>{
+    console.log('logout start');
+    
+  },[JSON.parse(localStorage.getItem("expiryTime"))])
 
 
   return (

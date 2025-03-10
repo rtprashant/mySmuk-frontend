@@ -15,7 +15,11 @@ function GoogleLogin() {
         try {
             dispatch(signInReq())
             const response = await googleLogin(code)
+            const loggedInUser = response.data.loggedInUser
+            const expiresIn = response.data.accessTokenExpiryTime
             dispatch(otpverifeid(response.data.loggedInUser))
+            localStorage.setItem("expiryTime", JSON.stringify(expiresIn))
+            localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser))
             navigate('/')
         } catch (error) {
             console.log(error);
@@ -30,14 +34,15 @@ function GoogleLogin() {
             flow: "auth-code"
         }
     )
-    useEffect(() => {
-        if (user) {
-            localStorage.setItem('loggedInUser', JSON.stringify(user));
-        }
-        
-        
-    }, [user]);
-    
+    // useEffect(() => {
+    //     if (user) {
+
+            
+    //     }
+
+
+    // }, [user]);
+
     return (
         <button
             onClick={handleClick} className='py-1 font-outfit text-[15px] flex justify-center items-center gap-2  w-full border rounded-3xl hover:cursor-pointer'>

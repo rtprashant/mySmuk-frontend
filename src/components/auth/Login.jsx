@@ -99,15 +99,15 @@ function Login() {
 
 
       const expiresIn = res.data.accessTokenExpiryTime
-      console.log(expiresIn);
+      console.log(typeof expiresIn);
 
-      const expiryTime = new Date().getTime() + expiresIn;
-      console.log(expiryTime + "expiry time");
+     
+
 
       const loggedInUser = res.data.loggedInUser;
-      console.log(loggedInUser);
-
-      localStorage.setItem("loggedInUser", JSON.stringify({ ...loggedInUser, expiryTime }))
+     
+      localStorage.setItem("expiryTime", JSON.stringify(expiresIn))
+      localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser))
       if (res.success) {
         naviagte('/')
       }
@@ -226,7 +226,10 @@ function Login() {
         </form>
         {
           emailOtp && (
-            <div className=' flex justify-center sm:mt-2 md:mt-0 mt-2 '>
+            <motion.div className=' flex justify-center sm:mt-2 md:mt-0 mt-2 '
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.5, ease: "circOut" }}>
               <button type='submit'
                 onClick={handleResendOtp}
                 disabled={!resendBtn}
@@ -245,7 +248,7 @@ function Login() {
                   </div>
                 }
               </button>
-            </div>
+            </motion.div>
           )
         }
 
