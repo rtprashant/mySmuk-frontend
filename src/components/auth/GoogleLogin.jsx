@@ -20,7 +20,7 @@ function GoogleLogin() {
             dispatch(otpverifeid(response.data.loggedInUser))
             localStorage.setItem("expiryTime", JSON.stringify(expiresIn))
             localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser))
-            navigate('/')
+            navigate(`/${location.pathname}`)
         } catch (error) {
             console.log(error);
             dispatch(signInFailed(error.response.data.data))

@@ -1,9 +1,13 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 
-export default function BookNow() {
+function BookNow() {
+    const { id } = useParams()
   return (
     <div>
-      book now
+      {id}
     </div>
   )
 }
+
+export default BookNow

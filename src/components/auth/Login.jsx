@@ -7,7 +7,7 @@ import { motion } from 'motion/react';
 import Signup from './Signup';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { LuLoaderCircle } from "react-icons/lu";
 import { toast } from 'react-hot-toast';
 import { otpReq, otpReqSuccess, otpverifeid, signInFailed, signInReq, signInSucces } from '../../redux/feature/auth/signIn';
@@ -23,6 +23,7 @@ function Login() {
   const { register, formState: { errors }, handleSubmit } = useForm()
   const [resendBtn, setResendBtn] = useState(false)
   const [resendtime, setResendTime] = useState(60);
+  const location = useLocation()
   useEffect(() => {
     const handleResend = () => {
       const currentTime = resendtime
@@ -72,6 +73,12 @@ function Login() {
 
       naviagte(`/auth/${res.data.loggedInUser._id}`)
       dispatch(signInSucces())
+      if(res.data.loggedInUser.userType === "admin"){
+        naviagte('/admin')
+      }else {
+        naviagte(`/${location.pathname}`)
+
+      }
     } catch (error) {
       console.log(error);
 

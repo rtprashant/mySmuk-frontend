@@ -126,3 +126,10 @@ export const footer = [
     
        
 ]
+
+export const errorPage = {
+    heading1:"OOPS! Page Not Found",
+    code : "404",
+    heading2:"We Are Sorry But The Page You Requested Was Not Found",
+ 
+}

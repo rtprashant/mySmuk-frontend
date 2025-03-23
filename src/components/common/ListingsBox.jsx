@@ -3,10 +3,10 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 
-function ListingBox({id , packageName , startingFrom , img}) {
+function ListingsBox({id , RestName , packageName , startingFrom , img}) {
     const navigate = useNavigate()
     const handleClick = (pid)=>{
-        navigate(`/package/${pid}`)
+        navigate(`/book-now/${pid}`)
         console.log(pid);
         
     }
@@ -25,13 +25,17 @@ function ListingBox({id , packageName , startingFrom , img}) {
                 />
 
                 <div className='h-[39px] w-full -mt-4 absolute bg-black flex justify-center items-center'>
-                    <h2 className='text-white font-outfit font-bold text-[20px] flex justify-center items-center'>{packageName}</h2>
+                    <h2 className='text-white font-outfit font-bold text-[20px] flex justify-center items-center'>{RestName}</h2>
                 </div>
             </div>
 
 
-            <div className='bg-white mt-5 px-3 rounded-b-xl'>
-                <div className='flex justify-between mt-5'>
+            <div className='bg-[#FF5151] mt-5 px-3 rounded-b-xl'>
+            <div className='uppercase font-oswald font-bold'>
+                        {packageName}
+                    </div>
+                <div className='flex  justify-between mt-5'>
+                    
                     <div className='flex flex-col'>
                         <h3 className='font-outfit font-semibold'>Starting From :</h3>
                         <h1 className='font-outfit font-semibold text-[40px]'> Rs {startingFrom}</h1>
@@ -39,7 +43,7 @@ function ListingBox({id , packageName , startingFrom , img}) {
                     <div>
                         <button
                         onClick={()=>handleClick(id)}
-                         className='bg-[#f41313] hover:cursor-pointer w-[107.12px] h-[43px] rounded-xl text-white mt-4'>Book Now</button>
+                         className='bg-black  hover:cursor-pointer w-[107.12px] h-[43px] rounded-xl text-white mt-4'>Book Now</button>
                     </div>
                 </div>
             </div>
@@ -47,4 +51,4 @@ function ListingBox({id , packageName , startingFrom , img}) {
     );
 }
 
-export default ListingBox;
+export default ListingsBox;

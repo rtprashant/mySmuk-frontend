@@ -132,8 +132,11 @@ function Signup({ setSignIn }) {
 
       localStorage.setItem("expiryTime", JSON.stringify(expiresIn))
       localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser))
-      if (res.success) {
-        naviagte('/')
+      if(res.data.loggedInUser.userType === "admin"){
+        naviagte('/admin')
+      }else {
+        naviagte(`/${location.pathname}`)
+
       }
 
     } catch (error) {

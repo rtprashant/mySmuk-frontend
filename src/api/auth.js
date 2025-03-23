@@ -20,6 +20,8 @@ const resendOtp = async(userId)=>{
     const res = await api.post(`api/v1/userRoutes/resendOtp/${userId}`,{})
     return res.data
 }
+
+
 export {
     userResgistration,
     verifyOtp,

@@ -5,16 +5,27 @@ import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import JoinUs from './components/joinus/JoinUs.jsx'
 import Login from './components/auth/Login.jsx'
-import BookNow from './components/bookorder/BookNow.jsx'
+
 import About from './components/about/About.jsx'
 import Contactus from './components/contact/Contactus.jsx'
 import { store } from './redux/store.js'
-import { Provider } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
 import Signup from './components/auth/Signup.jsx'
 import { Toaster } from 'react-hot-toast';
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import ShowBookRelatedRes from './components/bookorder/ShowBookRelatedRes.jsx'
+import ErrorPage from './components/common/ErrorPage.jsx'
+import Admin from './components/admin/Admin.jsx'
+import PackagePage from './components/admin/packages/PackagePage.jsx'
+import ListingPage from './components/admin/listing/ListingPage.jsx'
+import AddListing from './components/admin/listing/AddListing.jsx'
+import BookNow from './components/bookorder/BookNow.jsx'
 
 const AppRouter = () => {
+  const  user  = JSON.parse(localStorage.getItem("loggedInUser"))
+  console.log(user?.userType ==='admin');
+  
+  
   const route = createBrowserRouter([
     {
       path: '/',
@@ -32,8 +43,8 @@ const AppRouter = () => {
 
     },
     {
-      path: '/book-now',
-      element: <BookNow />
+      path: '/book-now/:id',
+      element: user ? <BookNow/> : <div>login first</div>
 
     },
     {
@@ -46,6 +57,30 @@ const AppRouter = () => {
       element: <Contactus />
 
     },
+    {
+      path: '/package/:id',
+      element: <ShowBookRelatedRes/>
+
+    },
+    {
+      path: '/admin',
+      element: user?.userType ==='admin' ? <Admin/> : <ErrorPage/>,
+
+    },
+    {
+      path: '/admin/add-packages',
+      element: user?.userType ==='admin' ? <PackagePage/> : <ErrorPage/>,
+
+    },
+    {
+      path: '/admin/add-listing',
+      element: user?.userType ==='admin' ? <ListingPage/> : <ErrorPage/>,
+
+    },
+    {
+      path: '/admin/add-listing/:id',
+      element: user?.userType ==='admin' ? <AddListing/> : <ErrorPage/>,
+    }
 
 
   ])
@@ -54,7 +89,7 @@ const AppRouter = () => {
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-
+   
     <Provider store={store}>
       <Toaster />
       <GoogleOAuthProvider clientId='1025749040549-vu4olhae365bgr5vfsnqhl30crp6spj1.apps.googleusercontent.com'>
