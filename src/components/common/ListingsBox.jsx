@@ -11,7 +11,7 @@ function ListingsBox({id , RestName , packageName , startingFrom , img}) {
         
     }
     return (
-        <motion.div className='w-[409px] h-full rounded-xl  relative '
+        <motion.div className='w-[98%] sm:w-[409px] h-full rounded-xl  relative '
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}

@@ -22,13 +22,13 @@ function Restaurants({id}) {
 
     },[])
   return (
-    <div>
+    <div className='w-full '>
       {
         listingData.map((itm)=>(
-            <div key={itm._id}>
-                <ListingsBox id={itm._id} packageName={itm.packageId?.packageName} RestName={itm.restaurantId?.restName} startingFrom={itm.price} img={itm.restaurantId.restImage[0]} />
-
-            </div>
+      
+            <div key={itm._id} className='flex flex-wrap mt-8 justify-center md:gap-10 sm:gap-10 gap-3 m-5 lg:gap-16 uppercase '>
+            <ListingsBox className="flex-grow uppercase" id={itm._id} packageName={itm.packageId?.packageName} RestName={itm.restaurantId?.restName} startingFrom={itm.price} img={itm.restaurantId.restImage[0]} />
+          </div>
 
         ))
       }
