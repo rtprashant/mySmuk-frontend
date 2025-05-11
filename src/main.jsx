@@ -22,7 +22,8 @@ import AddListing from './components/admin/listing/AddListing.jsx'
 import BookNow from './components/bookorder/BookNow.jsx'
 
 const AppRouter = () => {
-  const  user  = JSON.parse(localStorage.getItem("loggedInUser"))
+  const  loggedInUser  = JSON.parse(localStorage.getItem("loggedInUser"))
+  const { user } = useSelector((state) => state.signIn);
   console.log(user?.userType ==='admin');
   
   
@@ -44,7 +45,7 @@ const AppRouter = () => {
     },
     {
       path: '/book-now/:id',
-      element: user ? <BookNow/> : <div>login first</div>
+      element: user || loggedInUser ? <BookNow/> : <div>login first</div>
 
     },
     {
@@ -64,22 +65,22 @@ const AppRouter = () => {
     },
     {
       path: '/admin',
-      element: user?.userType ==='admin' ? <Admin/> : <ErrorPage/>,
+      element: loggedInUser?.userType ==='admin' ? <Admin/> : <ErrorPage/>,
 
     },
     {
       path: '/admin/add-packages',
-      element: user?.userType ==='admin' ? <PackagePage/> : <ErrorPage/>,
+      element: loggedInUser?.userType ==='admin' ? <PackagePage/> : <ErrorPage/>,
 
     },
     {
       path: '/admin/add-listing',
-      element: user?.userType ==='admin' ? <ListingPage/> : <ErrorPage/>,
+      element: loggedInUser?.userType ==='admin' ? <ListingPage/> : <ErrorPage/>,
 
     },
     {
       path: '/admin/add-listing/:id',
-      element: user?.userType ==='admin' ? <AddListing/> : <ErrorPage/>,
+      element: loggedInUser?.userType ==='admin' ? <AddListing/> : <ErrorPage/>,
     }
 
 

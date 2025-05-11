@@ -33,7 +33,7 @@ export const packageName = [
     {
         id : 3 ,
         name : "Premium",
-        value : "Premium"
+        value : "premium"
     },
     
 ]

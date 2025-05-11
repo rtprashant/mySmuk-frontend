@@ -24,10 +24,29 @@ const getAllListings = async(id)=>{
     return res.data
 
 }
+const addDishes = async(data ,id)=>{
+    const res = await api.post(`api/v1/adminRoutes/add-dish/${id}` , data)
+    return res.data
+
+}
+const getListingInfo = async(id)=>{
+    const res = await api.get(`api/v1/adminRoutes/get-lisitngInfo/${id}`)
+    return res.data
+
+}
+
+const filterListing =  async(data ,id)=>{
+    const res = await api.post(`api/v1/userRoutes/filterPackage/${id}` , data)
+    return res.data
+
+}
 export{
     getAllPackage,
     addPackage,
     getAllRestaurants,
     addListings,
-    getAllListings
+    getAllListings,
+    addDishes,
+    getListingInfo,
+    filterListing
 }

@@ -11,7 +11,8 @@ function ListingBox({id , packageName , startingFrom , img}) {
         
     }
     return (
-        <motion.div className='w-[98%] sm:w-[409px] h-full rounded-xl  relative '
+     
+        <motion.div className='w- sm:w-[409px] h-full rounded-xl  relative '
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
@@ -21,7 +22,7 @@ function ListingBox({id , packageName , startingFrom , img}) {
                 <img
                     src={img}
                     alt=""
-                    className={`h-[209px] w-full rounded-xl bg-gray-300 ${img? "":"animate-pulse"} object-cover`}
+                    className={`h-[180px] sm:h-[209px] w-full rounded-xl bg-gray-300 ${img? "":"animate-pulse"} object-cover`}
                 />
 
                 <div className='h-[39px] w-full -mt-4 absolute bg-black flex justify-center items-center'>
@@ -44,6 +45,8 @@ function ListingBox({id , packageName , startingFrom , img}) {
                 </div>
             </div>
         </motion.div>
+        
+       
     );
 }
 

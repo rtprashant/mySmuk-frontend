@@ -22,7 +22,7 @@ function MobileMenuSideBar({ setSignInPopUp , setLogout }) {
           console.error("No user found in localStorage");
           return;
         } else {
-          const name = firstName.charAt(0)
+          const name = firstName.charAt(0).toUpperCase()
           setName(name)
           setUser(true)
         }

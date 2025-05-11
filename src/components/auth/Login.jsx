@@ -73,12 +73,12 @@ function Login() {
 
       naviagte(`/auth/${res.data.loggedInUser._id}`)
       dispatch(signInSucces())
-      if(res.data.loggedInUser.userType === "admin"){
-        naviagte('/admin')
-      }else {
-        naviagte(`/${location.pathname}`)
+      // if(res.data.loggedInUser.userType === "admin"){
+      //   naviagte('/admin')
+      // }else {
+      //   naviagte(`/${location.pathname}`)
 
-      }
+      // }
     } catch (error) {
       console.log(error);
 

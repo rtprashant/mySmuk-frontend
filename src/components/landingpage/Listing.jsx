@@ -35,7 +35,7 @@ function Listing() {
         {
           listing.length > 0 ? (
             listing.map((itm, idx) => (
-              <div key={idx} className='flex flex-wrap mt-8 justify-center md:gap-10 sm:gap-10 gap-3 m-5 lg:gap-16 uppercase '>
+              <div key={idx} className='flex  flex-wrap mt-8 justify-center md:gap-10 sm:gap-10 gap-3 m-5 lg:gap-16 uppercase '>
                 <ListingBox className="flex-grow uppercase" packageName={itm?.packageName} startingFrom={itm?.startingFrom} id={itm?._id} img={itm?.image} />
               </div>
             ))
@@ -52,5 +52,9 @@ function Listing() {
     </div>
   )
 }
+
+
+
+ 
 
 export default Listing
