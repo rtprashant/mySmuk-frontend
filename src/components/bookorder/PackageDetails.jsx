@@ -1,13 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { getListingInfo } from '../../api/package';
+import { bookOrder, getListingInfo } from '../../api/package';
 import { useParams } from 'react-router-dom';
 import { RxCross2 } from "react-icons/rx";
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { LuLoaderCircle } from 'react-icons/lu';
+import { auth } from '../../constant/auth';
+import { placeOrder } from '../../constant/LandingPage';
 
 function PackageDetails() {
     const [selected, setSelected] = useState("veg");
     const { id } = useParams()
     const [listingInfo, setListingInfo] = useState({})
-    const [popup ,setPopup] = useState(false)
+    const [popup, setPopup] = useState(false)
+    const { register, formState: { errors }, handleSubmit } = useForm()
+    const [loading, setLoading] = useState(false)
     const currentRef = useRef()
     useEffect(() => {
         const info = async () => {
@@ -26,18 +33,34 @@ function PackageDetails() {
         info()
     }, [])
 
-    useEffect(()=>{
-        const handlePopUp = (e)=>{
-            if(currentRef.current && !currentRef.current.contains(e.target)){
+    useEffect(() => {
+        const handlePopUp = (e) => {
+            if (currentRef.current && !currentRef.current.contains(e.target)) {
                 setPopup(false)
             }
-            
+
         }
-        window.addEventListener("mousedown" , handlePopUp)
-        return ()=>{
-            window.removeEventListener("mousedown" , handlePopUp)
+        window.addEventListener("mousedown", handlePopUp)
+        return () => {
+            window.removeEventListener("mousedown", handlePopUp)
         }
     })
+
+
+    const handleBookOrder = async (data) => {
+        try {
+            setLoading(true)
+            const res = await bookOrder(data, id)
+            if (res.statusCode === 201) {
+                setLoading(false)
+                toast.success(res.message)
+                setPopup(false)
+            }
+        } catch (error) {
+            setLoading(false)
+            toast.error(error?.response?.data?.message)
+        }
+    }
 
     return (
         <div className='w-full  flex  justify-center '>
@@ -223,8 +246,8 @@ function PackageDetails() {
                                     <span className='md:mt-1 lg:mt-3 text-[12px]'>(Include all Taxes)</span>
                                 </div>
                                 <div className='w-full '>
-                                    <button className='bg-red-500 text-white px-2 py-1 rounded-xl font-oswald hover:cursor-pointer' onClick={()=>{
-                                      setPopup(true);
+                                    <button className='bg-red-500 text-white px-2 py-1 rounded-xl font-oswald hover:cursor-pointer' onClick={() => {
+                                        setPopup(true);
                                     }}>Book Now</button>
                                 </div>
                             </div>
@@ -239,19 +262,97 @@ function PackageDetails() {
             {
                 popup && (
                     <div className='fixed top-0 left-0 w-full h-screen flex justify-center items-center bg-black/50 z-50'>
+                        <div className="relative bg-[#ECECEC] p-5 rounded-lg w-[60%] h-[93%] " ref={currentRef}>
+                            <button
+                                className="absolute top-4 right-4 text-[40px] font-extrabold sm:block hidden text-red-500  hover:cursor-pointer  p-2 "
+                                onClick={() => setPopup(false)}
+                            >
+                                <RxCross2 className='lg:size-10 md:size-8 sm:size-8 size-8 ' />
+                            </button>
+                            <div>
+                                <h1 className='text-center text-[20px] font-oswald font-bold'>Just One More Step</h1>
+                                <form className='flex flex-col gap-2 mt-4' onSubmit={handleSubmit(handleBookOrder)}>
+                                    <div className='flex flex-col gap-2'>
+                                        <label htmlFor="phone" className='font-oswald'>Phone</label>
+                                        <input type="text" id='phone' placeholder='Enter your phone number' className='w-full h-10 rounded-lg px-2 border border-gray-300'  {...register('phone', {
+                                            required: true,
+                                        })} />
+                                        {errors.phone && <span className='text-red-500 font-oswald text-[12px]'>* This field is required</span>}
+                                    </div>
 
-                    <div className="relative bg-[#ECECEC] p-5 rounded-lg w-[60%] h-[93%] sm:block hidden" ref={currentRef}>
-                      <button
-                        className="absolute top-4 right-4 text-[40px] font-extrabold text-red-500 bg-[#F3F3F3] shadow-gray-500 shadow-lg hover:cursor-pointer  p-2 rounded-full"
-                        onClick={() => setPopup(false)}
-                      >
-                        <RxCross2 className='lg:size-10 md:size-8 sm:size-8 size-8 ' />
-                      </button>
-                      
+                                    <div className='flex flex-col gap-2'>
+                                        <label htmlFor="date" className='font-oswald'>Select Available Date</label>
+                                        <select className='w-full h-10 rounded-lg px-2 border border-gray-300' {...register('date', {
+                                            required: true,
+                                        })} >
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                        {errors.date && <span className='text-red-500 font-oswald text-[12px]'>* This field is required</span>}
+
+                                    </div>
+                                    <div className='flex flex-col gap-2'>
+                                        <label htmlFor="timeSlot" className='font-oswald'>Select Available Slot</label>
+                                        <select className='w-full h-10 rounded-lg px-2 border border-gray-300' {...register('timeSlot', {
+                                            required: true,
+                                        })}>
+                                            <option value="1">12:00 AM - 1:00 PM</option>
+                                            <option value="2">2:00 PM - 3:00 PM</option>
+                                            <option value="3">4:00 PM - 5:00 PM</option>
+                                        </select>
+                                        {errors.timeSlot && <span className='text-red-500 font-oswald text-[12px]'>* This field is required</span>}
+
+                                    </div>
+                                    <div className='flex flex-col gap-2'>
+                                        <label htmlFor="mealType" className='font-oswald'>Meal Type</label>
+                                        <div className='flex gap-4'>
+                                            <label className='flex items-center gap-2'>
+                                                <input
+                                                    type='radio'
+                                                    value='veg'
+                                                    {...register('mealType', { required: true })}
+                                                />
+                                                Veg Meal
+                                            </label>
+
+                                            <label className='flex items-center gap-2'>
+                                                <input
+                                                    type='radio'
+                                                    value='non-veg'
+                                                    {...register('mealType', { required: true })}
+                                                />
+                                                Non-Veg Meal
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div className=' flex justify-center '>
+                                                     {
+                                                       loading ? (
+                                                         <button type='submit'
+                                                           disabled={loading}
+                                                           className='bg-gray-400 font-outfit text-[15px] flex justify-center items-center gap-2 text-white px-4 py-1 rounded-md hover:cursor-pointer'>
+                                                           <p>{placeOrder.disbledBtn}</p>
+                                                           <LuLoaderCircle className='animate-spin ' />
+                                                         </button>
+                                                       ) : (
+                                                         <button type='submit'
+                                                           className='bg-[#FF1C1C] font-outfit text-[15px] text-white px-4 py-1 rounded-md hover:cursor-pointer'>
+                                                           {placeOrder.btn}
+                                                         </button>
+                                                       )
+                                                     }
+                                                   </div>
+                                </form>
+
+                            </div>
+
+
+                        </div>
                     </div>
-          
-                    
-                  </div>
                 )
             }
         </div>

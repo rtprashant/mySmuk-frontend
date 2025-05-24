@@ -133,3 +133,8 @@ export const errorPage = {
     heading2:"We Are Sorry But The Page You Requested Was Not Found",
  
 }
+
+export const placeOrder = {
+    btn : "Book Now",
+    disbledBtn : "Please Wait...",
+}

@@ -40,6 +40,11 @@ const filterListing =  async(data ,id)=>{
     return res.data
 
 }
+
+const bookOrder = async(data , id)=>{
+    const res = await api.post(`api/v1/userRoutes/placeOrder/${id}` , data)
+    return res.data
+}
 export{
     getAllPackage,
     addPackage,
@@ -48,5 +53,6 @@ export{
     getAllListings,
     addDishes,
     getListingInfo,
-    filterListing
+    filterListing,
+    bookOrder
 }
