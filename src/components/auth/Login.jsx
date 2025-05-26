@@ -24,6 +24,7 @@ function Login() {
   const [resendBtn, setResendBtn] = useState(false)
   const [resendtime, setResendTime] = useState(60);
   const location = useLocation()
+  const[id , setId] = useState(null)
   useEffect(() => {
     const handleResend = () => {
       const currentTime = resendtime
@@ -72,13 +73,9 @@ function Login() {
       console.log(res.data.loggedInUser._id);
 
       naviagte(`/auth/${res.data.loggedInUser._id}`)
+      setId(res.data.loggedInUser._id)
       dispatch(signInSucces())
-      // if(res.data.loggedInUser.userType === "admin"){
-      //   naviagte('/admin')
-      // }else {
-      //   naviagte(`/${location.pathname}`)
-
-      // }
+      
     } catch (error) {
       console.log(error);
 
@@ -93,7 +90,7 @@ function Login() {
     try {
       dispatch(signInReq())
       console.log(userId);
-      const res = await verifyOtp(e, userId)
+      const res = await verifyOtp(e, id)
       console.log(res);
 
       toast.success(res.message, {

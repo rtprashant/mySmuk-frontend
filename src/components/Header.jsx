@@ -1,35 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { navBar } from '../constant/LandingPage';
 import { useNavigate } from 'react-router-dom';
 import { motion } from "motion/react"
 import Login from './auth/Login';
 import { useSelector } from 'react-redux';
+import { context } from './context/MysmukContext';
+import NameClickPopup from './common/NameClickPopup';
 function Header({ setSignInPopUp }) {
     // const { user } = useSelector((state) => state.signIn)
     const navigate = useNavigate()
     const [scrollDirection, setScrollDirection] = useState("up");
     const [scrolledMoreThanHalf, setScrolledMoreThanHalf] = useState(false)
     const [name, setName] = useState('')
-    const [ user , setUser] = useState(false)
+    const [user, setUser] = useState(false)
+    // const { nameClick, setNameClick } = useContext(context)
     useEffect(() => {
         const handleName = () => {
             const name = localStorage.getItem('loggedInUser')
-            if(name){
-                const { firstName} = JSON.parse(name)
-            if (!firstName) {
-                console.error("No user found in localStorage");
-                return;
-            }else{
-                const name = firstName.charAt(0).toUpperCase()
-                setName(name)
-                setUser(true)
+            if (name) {
+                const { firstName } = JSON.parse(name)
+                if (!firstName) {
+                    console.error("No user found in localStorage");
+                    return;
+                } else {
+                    const name = firstName.charAt(0).toUpperCase()
+                    setName(name)
+                    setUser(true)
                 }
 
             }
 
         }
         handleName()
-    }, [user , name , localStorage.getItem('loggedInUser')])
+    }, [user, name, localStorage.getItem('loggedInUser')])
 
 
     useEffect(() => {
@@ -138,9 +141,15 @@ function Header({ setSignInPopUp }) {
                                                 </button>
                                                 {
                                                     user ? (
-                                                        <div className='h-12 w-12 text-white bg-[#f41313] rounded-full flex items-center justify-center ml-3 font-semibold cursor-pointer text-[35px]'>
-                                                            {name}
+                                                        <div>
+                                                            <div className='h-12 w-12 text-white bg-[#f41313] rounded-full flex items-center justify-center ml-3 font-semibold cursor-pointer text-[35px]' >
+                                                                {name}
+                                                            </div>
+                                                            {/* <div>
+                                                                <NameClickPopup/>
+                                                            </div> */}
                                                         </div>
+
                                                     ) : (
                                                         <button className="lg:w-[125px] lg:h-[41px] md:w-[57.85px] md:h-[51px] text-white bg-[#f41313] flex items-center justify-center rounded-lg lg:text-[24px] hover:cursor-pointer hover:bg-[#FF1717] font-outfit md:text-[14px] z-50"
                                                             onClick={() => {
