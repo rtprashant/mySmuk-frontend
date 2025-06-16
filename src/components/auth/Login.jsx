@@ -47,7 +47,7 @@ function Login() {
   const handleResendOtp = async () => {
     try {
       dispatch(otpReq())
-      const res = await resendOtp(userId)
+      const res = await resendOtp(id)
       toast.success(res.message)
       if (res.success) {
         setResendTime(60)
